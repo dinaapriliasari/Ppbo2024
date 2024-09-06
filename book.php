@@ -1,24 +1,45 @@
 <?php
-class Author
-{
-    public $name;
-    public $description;
 
-    public function __construct($name, $description) {
-        $this->name = $name;
+class Book
+{
+    public $ISBN;
+    public $title;
+    public $description;
+    public $category;
+    public $language;
+    public $numberOfPage;
+    public $author;
+    public $publisher;
+
+    public function __construct($ISBN, $title, $description, $category, $language, $numberOfPage, $author, $publisher) {
+        $this->ISBN = $ISBN;
+        $this->title = $title;
         $this->description = $description;
+        $this->category = $category;
+        $this->language = $language;
+        $this->numberOfPage = $numberOfPage;
+        $this->author = $author;
+        $this->publisher = $publisher;
     }
 
-    public function show($type): array {
-        if ($type === 'name') {
-            return ['name' => $this->name];
-        } elseif ($type === 'description') {
-            return ['description' => $this->description];
+    public function showAll(): array {
+        return [
+            'ISBN' => $this->ISBN,
+            'title' => $this->title,
+            'description' => $this->description,
+            'category' => $this->category,
+            'language' => $this->language,
+            'numberOfPage' => $this->numberOfPage,
+            'author' => $this->author,
+            'publisher' => $this->publisher
+        ];
+    }
+
+    public function detail($ISBN): array {
+        if ($this->ISBN == $ISBN) {
+            return $this->showAll();
         } else {
-            return [
-                'name' => $this->name,
-                'description' => $this->description
-            ];
+            return [];
         }
     }
 }

@@ -1,118 +1,18 @@
 <?php
+// Memasukkan file yang berisi class dengan require_once
+require_once 'Author.php';
+require_once 'Book.php';
+require_once 'Publisher.php';
 
-class Author
-{
-    public $name;
-    public $description;
+// Contoh Penggunaan
+$author = new Author("J.K. Rowling", "Famous author of Harry Potter series");
+$publisher = new Publisher("Bloomsbury", "London", "123456789");
 
-    public function __construct($name, $description) {
-        $this->name = $name;
-        $this->description = $description;
-    }
+$book = new Book(1234567890, "Harry Potter", "A magical story", "Fantasy", "English", 500, $author->name, $publisher->name);
 
-    public function show($type): array {
-        if ($type === 'name') {
-            return ['name' => $this->name];
-        } elseif ($type === 'description') {
-            return ['description' => $this->description];
-        } else {
-            return [
-                'name' => $this->name,
-                'description' => $this->description
-            ];
-        }
-    }
-}
-
-class Book
-{
-    public $ISBN;
-    public $title;
-    public $description;
-    public $category;
-    public $language;
-    public $numberOfPage;
-    public $author;
-    public $publisher;
-
-    public function __construct($ISBN, $title, $description, $category, $language, $numberOfPage, $author, $publisher) {
-        $this->ISBN = $ISBN;
-        $this->title = $title;
-        $this->description = $description;
-        $this->category = $category;
-        $this->language = $language;
-        $this->numberOfPage = $numberOfPage;
-        $this->author = $author;
-        $this->publisher = $publisher;
-    }
-
-    public function showAll(): array {
-        return [
-            'ISBN' => $this->ISBN,
-            'title' => $this->title,
-            'description' => $this->description,
-            'category' => $this->category,
-            'language' => $this->language,
-            'numberOfPage' => $this->numberOfPage,
-            'author' => $this->author,
-            'publisher' => $this->publisher
-        ];
-    }
-
-    public function detail($ISBN): array {
-        if ($this->ISBN == $ISBN) {
-            return $this->showAll();
-        } else {
-            return [];
-        }
-    }
-}
-
-class Publisher
-{
-    public $name;
-    public $address;
-    private $phone;
-
-    public function __construct($name, $address, $phone) {
-        $this->name = $name;
-        $this->address = $address;
-        $this->phone = $phone;
-    }
-
-    public function setPhone(int $phone): void {
-        $this->phone = $phone;
-    }
-
-    public function getPhone(): int {
-        return $this->phone;
-    }
-}
-
-// Contoh penggunaan
-$author = new Author("Hajime Isayama", "Penulis dan ilustrator manga terkenal, pencipta serial 'Attack on Titan'.");
-$publisher = new Publisher("Kodansha", "Tokyo, Jepang", 987654321);
-
-$book = new Book(
-    123456789, // ISBN
-    "Attack on Titan", // Title
-    "Manga tentang perjuangan manusia melawan raksasa yang mengancam umat manusia.", // Description
-    "Manga", // Category
-    "Japanese", // Language
-    200, // Number of Pages
-    $author->name, // Author
-    $publisher->name // Publisher
-);
-
-echo "Informasi Penulis:\n";
-print_r($author->show('all'));
-
-echo "\nInformasi Penerbit:\n";
-echo "Nama: " . $publisher->name . "\n";
-echo "Alamat: " . $publisher->address . "\n";
-echo "Telepon: " . $publisher->getPhone() . "\n";
-
-echo "\nInformasi Komik:\n";
+// Tampilkan detail buku
 print_r($book->showAll());
 
+// Dapatkan nomor telepon penerbit
+echo $publisher->getPhone();
 ?>
