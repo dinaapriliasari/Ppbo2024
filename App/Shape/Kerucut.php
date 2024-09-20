@@ -1,5 +1,6 @@
 <?php
-class Bola
+namespace App\Shape;
+class Kerucut
 {
     const PHI = 3.14;
     public $jari_jari;
@@ -8,7 +9,7 @@ class Bola
         $this->jari_jari = $jari_jari;
     }
 
-    public function volume() : float {
-        return (4/3) * self::PHI * pow($this->jari_jari, 3);
+    public function volume($tinggi) : float {
+        return (1/3) * self::PHI * pow($this->jari_jari, 2) * $tinggi;
     }
 }
